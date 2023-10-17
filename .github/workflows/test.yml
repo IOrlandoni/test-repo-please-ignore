@@ -1,0 +1,17 @@
+name: Base
+
+on:
+  workflow_run:
+    workflows: ["Base"]
+    branches: [ main ]
+    types:
+      - completed
+
+jobs:
+  one:
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Dump Event Workflow Run
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github.event.workflow_run) }}
+        run: echo "$GITHUB_CONTEXT"
